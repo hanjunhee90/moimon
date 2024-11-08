@@ -1,42 +1,21 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
+<html xmlns:th="http://www.thymeleaf.org" 
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
 	  layout:decorate="~{layouts/default_layout}">
 <head>
-<meta charset="UTF-8">
-<title>interest</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>interest</title>
 <style>
 	.ctg-sty{
 		width: calc(20% - 10px); /* 한 줄에 5개씩 표시되도록 너비 설정 */
     	text-align: center;
 	}
 </style>
-<script>
-    $(document).ready(function () {
-        // 선택 항목 클릭 이벤트
-        $('.selected-item').on('click', function () {
-            const itrId = $(this).data('itrid'); // itrId 값 가져오기
-            const inputName = 'interest_' + itrId; // input name 설정
-            const isSelected = $(this).hasClass('selected');
-            
-            if (!isSelected) {
-                // 항목이 선택되지 않은 경우, 선택 상태로 만들고 input 추가
-                $(this).addClass('selected');
-                $('<input>').attr({
-                    type: 'hidden',
-                    name: inputName,
-                    value: itrId
-                }).appendTo('#hidden-inputs');
-            } else {
-                // 이미 선택된 경우, 선택 해제하고 input 제거
-                $(this).removeClass('selected');
-                $(`input[name="${inputName}"]`).remove();
-            }
-        });
-    });
-</script>
+
 </head>
-<body>
-<div layout:fragment="content" class="table-container">
+<body layout:fragment="content">
+<div class="content table-container">
     <h2>관심사 리스트</h2>
 
     <!-- 관심사 선택 폼 -->
@@ -71,4 +50,28 @@
     </form>
 </div>
 </body>
+<script>
+    $(document).ready(function () {
+        // 선택 항목 클릭 이벤트
+        $('.selected-item').on('click', function () {
+            const itrId = $(this).data('itrid'); // itrId 값 가져오기
+            const inputName = 'interest_' + itrId; // input name 설정
+            const isSelected = $(this).hasClass('selected');
+            
+            if (!isSelected) {
+                // 항목이 선택되지 않은 경우, 선택 상태로 만들고 input 추가
+                $(this).addClass('selected');
+                $('<input>').attr({
+                    type: 'hidden',
+                    name: inputName,
+                    value: itrId
+                }).appendTo('#hidden-inputs');
+            } else {
+                // 이미 선택된 경우, 선택 해제하고 input 제거
+                $(this).removeClass('selected');
+                $(`input[name="${inputName}"]`).remove();
+            }
+        });
+    });
+</script>
 </html>

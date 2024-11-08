@@ -18,9 +18,9 @@ public class MemberController {
 	
 	@GetMapping("/addr")
 	public String addr() {
-		return "members/mem_info";
+		return "members/memjuso";
 	}
-	
+
 	@GetMapping("/interest")
 	public String interest(Model model) {
 		ArrayList<InterestVO> interestList = memService.getInterestList();

@@ -24,15 +24,12 @@ div {
 /* 상단 nav 관련 스타일 */
 .nav-custom{
 	background: #FBFBFB;
+	height: 50px;
 }
 
 /* Navbar 기본 스타일 */
 .nav-custom {
     padding-bottom: 0;
-}
-
-.navbar-brand {
-    font-weight: bold;
 }
 
 .nav-link {
@@ -44,55 +41,54 @@ div {
 .nav-link:active {
     font-size: 18px; /* 클릭 시 텍스트 크기 증가 */
     text-decoration: underline;
-    text-decoration-color: #d3d3d3; /* 옅은 회색 밑줄 */
+    text-decoration-color: black; /* 옅은 회색 밑줄 */
     text-underline-offset: 3px;
 }
 
-/* 밑줄 스타일 */
-.nav-underline {
-    border: 1px solid #eae2e2;
-}
 
 /*========== nav css 끝 ==========*/
 
-/* 푸터의 높이만큼 페이지 하단에 여백을 추가하여 푸터가 콘텐츠를 가리지 않게 하기 위해 */
+/* body를 flex 컨테이너로 만들어 페이지를 세로로 정렬 */
 body {
     font-family: 'sejong', sans-serif;
-	padding-bottom: 70px;
-	padding-top:70px;
 	background-color: #FEFAF6;
+	padding-top: 60px; 
+	display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* 전체 화면 높이 설정 */
+    margin: 0;
 }
-
+/* 콘텐츠가 페이지 전체를 차지하도록 설정 */
+.content {
+    flex: 1; /* 콘텐츠 영역이 남은 공간을 차지 */
+}
 /*테이블과 table-container 로 정의한 커스텀 css*/
  .table-container {
         padding: 20px;
-    }
-    .selection-container {
-        display: flex;
-        gap: 10px;
-        flex-wrap: wrap;
-        margin-top: 10px;
-    }
-    .selected-item {
-        display: inline-block;
-        padding: 8px 12px;
-        margin-right: 5px;
-        border: 1px solid #ddd;
-        border-radius: 20px;
-        background-color: #B5EAEA;
-        color: #333;
-        font-weight: bold;
-        cursor: pointer;
-    }
-    .selected-item:hover {
-        background-color: #90AACB;
-    }
-
-
-/* 푸터 관련 스타일 */
-.footer {
-    background-color: #FBFBFB;
 }
+
+.selection-container {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: 10px;
+}
+.selected-item {
+    display: inline-block;
+    padding: 8px 12px;
+    margin-right: 5px;
+    border: 1px solid #ddd;
+    border-radius: 20px;
+    background-color: #B5EAEA;
+    color: #333;
+    font-weight: bold;
+    cursor: pointer;
+}
+.selected-item:hover {
+    background-color: #90AACB;
+}
+
+
 
 
 /* main 카드들 스타일 */
@@ -117,38 +113,24 @@ body {
     transform: scale(1.03); /* 마우스 호버 시 확대 */
 }
 
+/* 카드 이미지 스타일 */
+.fixed-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+}
+
 /* 카드 바디 스타일 */
-.card-body {
-    display: flex;
-    flex-direction: column;
-    padding: 1rem;
+.card {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease;
+    overflow: hidden;
 }
 
-.card-title {
-    font-size: 1.25rem;
-    font-weight: bold;
-    margin-bottom: 0.5rem;
-}
-
-.card-text {
-    color: #6c757d;
-    margin-bottom: 1rem;
-}
-
-/* 배지 스타일 */
-.badge {
-    font-size: 0.85rem;
-    padding: 0.3em 0.5em;
-}
-
-.bg-primary {
-    background-color: #007bff !important; /* 기본 색상 설정 */
-    color: white;
-}
-
-.bg-warning {
-    background-color: #ffc107 !important;
-    color: white;
+.card:hover {
+    transform: scale(1.03);
 }
 
 /* 더보기 링크 스타일 */
@@ -190,7 +172,23 @@ body {
 
 /* 전체 레이아웃 스타일 */
 .container {
-    padding-top: 2rem;
-    padding-bottom: 2rem;
+	padding: 1rem;
+}
+
+/* 푸터 스타일 */
+/* footer는 기본적으로 페이지 맨 하단에 위치 */
+.footer {
+    background-color: #FBFBFB;
+    padding: 1rem;
+}
+
+.footer .text-muted {
+    font-size: 0.875rem;
+}
+
+/* 배지 스타일 */
+.badge {
+    font-size: 0.85rem;
+    padding: 0.3em 0.5em;
 }
 
