@@ -1,0 +1,170 @@
+/* 전체 폰트를 여기어떄 잘난체로 */
+@font-face {
+	font-family: 'jalnan2';
+	src: url('/fonts/Jalnan2TTF.ttf') format('truetype');
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'sejong';
+	src: url('/fonts/SejongGeulggot.ttf') format('truetype');
+	font-weight: normal;
+	font-style: normal;
+}
+/* 헤드라인 및 강조 텍스트 */
+h1, h2, h3, .title, .highlight {
+    font-family: 'jalnan2', sans-serif;
+}
+/* 모든 div 요소에 라운드 처리 */
+div {
+    border-radius: 8px; /* 원하는 라운드 값으로 조정 */
+}
+/*========== nav css 시작 ==========*/
+/* 상단 nav 관련 스타일 */
+.nav-custom{
+	background: #FBFBFB;
+}
+
+/* Navbar 기본 스타일 */
+.nav-custom {
+    padding-bottom: 0;
+}
+
+.navbar-brand {
+    font-weight: bold;
+}
+
+.nav-link {
+    transition: all 0.3s ease; /* 부드러운 전환 효과 */
+    font-size: 16px;
+}
+
+/* 클릭 시 스타일 */
+.nav-link:active {
+    font-size: 18px; /* 클릭 시 텍스트 크기 증가 */
+    text-decoration: underline;
+    text-decoration-color: #d3d3d3; /* 옅은 회색 밑줄 */
+    text-underline-offset: 3px;
+}
+
+/* 밑줄 스타일 */
+.nav-underline {
+    border: 1px solid #eae2e2;
+}
+
+/*========== nav css 끝 ==========*/
+
+/* 푸터의 높이만큼 페이지 하단에 여백을 추가하여 푸터가 콘텐츠를 가리지 않게 하기 위해 */
+body {
+    font-family: 'sejong', sans-serif;
+	padding-bottom: 70px;
+	padding-top:70px;
+	background-color: #FEFAF6;
+}
+
+/* 푸터 관련 스타일 */
+.footer {
+    background-color: #FBFBFB;
+}
+
+
+/* main 카드들 스타일 */
+
+/* 공통 카드 이미지 스타일 */
+.fixed-image {
+    width: 100%;
+    height: 200px; /* 모든 카드 이미지의 높이를 동일하게 지정 */
+    object-fit: cover; /* 이미지 비율을 유지하며 지정된 크기에 맞춤 */
+    border-top-left-radius: 8px; /* 카드 이미지의 좌측 상단 모서리를 둥글게 */
+    border-top-right-radius: 8px; /* 카드 이미지의 우측 상단 모서리를 둥글게 */
+}
+
+/* 카드 기본 스타일 */
+.card {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 부드러운 그림자 */
+    transition: transform 0.2s ease; /* 마우스 호버 시 부드러운 확대 효과 */
+    overflow: hidden; /* 둥근 모서리 밖의 이미지가 잘리지 않도록 설정 */
+}
+
+.card:hover {
+    transform: scale(1.03); /* 마우스 호버 시 확대 */
+}
+
+/* 카드 바디 스타일 */
+.card-body {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+}
+
+.card-title {
+    font-size: 1.25rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+
+.card-text {
+    color: #6c757d;
+    margin-bottom: 1rem;
+}
+
+/* 배지 스타일 */
+.badge {
+    font-size: 0.85rem;
+    padding: 0.3em 0.5em;
+}
+
+.bg-primary {
+    background-color: #007bff !important; /* 기본 색상 설정 */
+    color: white;
+}
+
+.bg-warning {
+    background-color: #ffc107 !important;
+    color: white;
+}
+
+/* 더보기 링크 스타일 */
+.more-link {
+    display: inline-flex;
+    align-items: center;
+    color: #007bff;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.2s ease;
+}
+
+.more-link:hover {
+    color: #0056b3;
+}
+
+.more-link img {
+    margin-left: 0.25rem;
+}
+
+/* 제목 및 설명 스타일 */
+.section-title {
+    display: flex;
+    align-items: center;
+    font-size: 1.75rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+}
+
+.section-title img {
+    margin-right: 0.5rem;
+}
+
+.section-description {
+    color: #6c757d;
+    font-size: 1rem;
+    margin-bottom: 2rem;
+}
+
+/* 전체 레이아웃 스타일 */
+.container {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+}
+
