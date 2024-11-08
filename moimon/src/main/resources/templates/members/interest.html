@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
+	  layout:decorate="~{layouts/default_layout}">
+<head>
+<meta charset="UTF-8">
+<title>interest</title>
+<style>
+	.ctg-sty{
+		width: calc(20% - 10px); /* 한 줄에 5개씩 표시되도록 너비 설정 */
+    	text-align: center;
+	}
+</style>
+<script>
+    $(document).ready(function () {
+        // 선택 항목 클릭 이벤트
+        $('.selected-item').on('click', function () {
+            const itrId = $(this).data('itrid'); // itrId 값 가져오기
+            const inputName = 'interest_' + itrId; // input name 설정
+            const isSelected = $(this).hasClass('selected');
+            
+            if (!isSelected) {
+                // 항목이 선택되지 않은 경우, 선택 상태로 만들고 input 추가
+                $(this).addClass('selected');
+                $('<input>').attr({
+                    type: 'hidden',
+                    name: inputName,
+                    value: itrId
+                }).appendTo('#hidden-inputs');
+            } else {
+                // 이미 선택된 경우, 선택 해제하고 input 제거
+                $(this).removeClass('selected');
+                $(`input[name="${inputName}"]`).remove();
+            }
+        });
+    });
+</script>
+</head>
+<body>
+<div layout:fragment="content" class="table-container">
+    <h2>관심사 리스트</h2>
+
+    <!-- 관심사 선택 폼 -->
+    <form id="interestForm" method="post" action="/submitInterests">
+        <!-- itrId별로 그룹화하여 출력 -->
+<!--         <div th:each="itrList : ${interestList}">
+            <h3 th:text="${itrList.itrName}"></h3> itrName 출력
+
+            카테고리 리스트
+            <div class="selection-container ctg-sty">
+                <div th:each="item : ${itrList}" 
+                     class="selected-item"
+                     th:data-itrrid="${item.itrId}"
+                     th:text="${item.ctgName}"></div>
+            </div>
+        </div> -->
+        <div th:each="item, iterStat : ${interestList}">
+            <!-- 이전 항목과 itrId가 다르면 새로운 h3 태그와 그룹 생성 -->
+            <h3 th:if="${iterStat.index == 0 or item.itrId != interestList[iterStat.index - 1].itrId}"
+                th:text="${item.itrName}"></h3>
+
+            <!-- 카테고리 리스트 -->
+            <div class="selection-container" th:if="${iterStat.index == 0 or item.itrId != interestList[iterStat.index - 1].itrId}">
+            </div>
+            <div class="selected-item" th:data-itrrid="${item.itrId}" th:text="${item.ctgName}"></div>
+        </div>
+
+        <!-- 숨겨진 input 요소가 추가되는 영역 -->
+        <div id="hidden-inputs"></div>
+        
+        <button type="submit" class="btn btn-primary">제출</button>
+    </form>
+</div>
+</body>
+</html>

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
+	  layout:decorate="~{layouts/default_layout}">
+<head>
+<meta charset="UTF-8">
+<title>addr</title>
+
+<script>
+	$(document).ready(function () {
+		var clickCount = 0; // 클릭 횟수를 추적하는 변수
+		const maxSelection = 3; // 최대 선택 수
+		const url_addr = "https://grpc-proxy-server-mkvo6j4wsq-du.a.run.app/v1/regcodes?regcode_pattern=";
+		
+		// 페이지가 로드되면 첫 번째 데이터를 바로 요청
+		searchAddr();
+		updateSelectionCount();
+
+		// 첫 번째 데이터 요청
+		function searchAddr() {
+			$.getJSON(url_addr+'*00000000', function (data) {
+				displayData(data, 'first'); // 첫 번째 데이터 표시
+			});
+		}
+
+		function nextAddr(pattern) {
+			var url = url_addr + pattern;
+			$.getJSON(url, function (data) {
+				displayData(data, 'second'); // 두 번째 단계 데이터 표시
+			});
+		}
+
+		// 데이터를 테이블에 4개씩 행으로 표시
+		function displayData(data, stage) {
+	        var tableContent = '';
+	        $.each(data.regcodes, function (index, item) {
+	            if (index % 4 === 0) tableContent += '<tr>'; // 4개마다 새로운 행 시작
+	            tableContent += `<td data-value="${item.code}" data-stage="${stage}">${item.name}</td>`;
+	            if ((index + 1) % 4 === 0) tableContent += '</tr>'; // 4개 단위로 행 종료
+	        });
+        
+	        if (data.regcodes.length % 4 !== 0) tableContent += '</tr>'; // 마지막 행 닫기
+	        
+	        $('#juso tbody').html(tableContent); // 기존의 tbody 내용 삭제 후 새로운 내용 추가
+	
+	    	// 클릭 이벤트 설정
+			$('#juso td').off('click').on('click', function () {
+			    if (clickCount >= maxSelection) {
+			        alert(`최대 ${maxSelection}번까지만 선택할 수 있습니다.`);
+			        return;
+			    }
+			
+			    var codeValue = $(this).data('value').toString(); // 문자열로 변환
+			    var nameValue = $(this).text();
+			    var stage = $(this).data('stage');
+			
+			    if (stage === 'first') {
+			        // 첫 번째 값을 선택하면 앞의 두 자리와 "*000000" 붙여서 요청
+			        const nextPattern = codeValue.substring(0, 2) + '*000000';
+			        nextAddr(nextPattern);
+			    } else if (stage === 'second') {
+			        // 두 번째 선택에서만 미리보기 컨테이너에 추가
+			        clickCount++;
+			        addSelectedAddress(nameValue, codeValue);
+			        updateSelectionCount(); // 선택 수 업데이트
+			
+			        // 선택된 항목에 "selected" 클래스 추가
+			        $('#juso td').removeClass('selected'); // 기존 선택 제거
+			        $(this).addClass('selected'); // 현재 선택된 항목에 추가
+			        
+			        resetTable();
+		    	}
+			});
+		}
+
+       // 초기 상태로 돌아가는 함수
+       function resetTable() {
+           $('#juso tbody').empty(); // 테이블 초기화
+           searchAddr(); // 첫 번째 데이터 다시 요청
+       }
+       
+       // 선택된 주소를 미리보기 컨테이너에 추가하는 함수
+       function addSelectedAddress(name, code) {
+           const itemName = `memAddr${clickCount}`; // memAddr1, memAddr2, memAddr3 순으로 설정
+           const newItem = `<div class="selected-item" data-name="${itemName}" data-code="${code}">${name} <span class="remove-btn" style="color:red; margin-left: 5px;">&times;</span></div>`;
+           $('#selected-items').append(newItem);
+
+           // 해당 주소를 숨겨진 input 요소로 추가하여 서버로 전송
+           const input = `<input type="hidden" name="${itemName}" value="${name}">`;
+           $('#hidden-inputs').append(input);
+           
+           // 클릭하면 항목 삭제
+           $('.remove-btn').off('click').on('click', function () {
+               $(this).parent().remove(); // 해당 div 요소 삭제
+               $(`input[name="${itemName}"]`).remove(); // 해당 hidden input 삭제
+               clickCount--; // 클릭 횟수 감소
+               updateSelectionCount(); // 선택 수 업데이트
+           });
+       }
+       
+       // 선택한 관심 지역 개수를 업데이트하는 함수
+       function updateSelectionCount() {
+           $('#selection-count').text(`${clickCount}/${maxSelection}`);
+       }
+	});
+</script>
+</head>
+<body>
+	<div layout:fragment="content" class="content">
+	
+	<div class="container my-4">
+        <h2 class="text-center">동네 선택(최대 3개까지)</h2>
+
+        <!-- 선택된 주소 미리보기 -->
+        <div class="table-container mb-3">
+            <h4>내 관심지역 <span id="selection-count">0/3</span></h4>
+            <div id="selected-items" class="selection-container"></div>
+        </div>
+
+        <!-- 숨겨진 input 요소들 -->
+        <form id="addressForm" method="post" action="/submitAddress">
+            <div id="hidden-inputs"></div>
+            <button type="submit" class="btn btn-primary">제출</button>
+        </form>
+
+        <!-- 주소 선택 테이블 -->
+        <div class="table-container">
+            <table id="juso" class="table table-bordered table-hover text-center">
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+	
+	</div>
+</body>
+</html>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.future.my.member.dao.IMemberDAO">
+
+	<select id="getInterestList" resultType="com.future.my.member.vo.InterestVO">
+		SELECT a.ctg_id 
+		     , a.ctg_name
+		     , b.itr_id
+		     , b.itr_name
+		FROM interest_ctg a, interests b
+		WHERE a.ctg_id = b.ctg_id
+	</select>
+	
+	
+</mapper>
