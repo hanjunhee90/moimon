@@ -7,8 +7,7 @@
 	<div layout:fragment="content" class="content">
 		<section class="container py-5">
 			<div class="d-flex align-items-center mb-4">
-				<img
-					src="https://images.munto.kr/munto-web/ic_info_socialing_16px.svg"
+				<img th:src="@{/images/star.svg}"
 					width="18" height="18" alt="socialing-mark">
 				<h2 class="ms-2 mb-0">소셜링</h2>
 			</div>
@@ -19,19 +18,17 @@
 				<!-- Card 1 -->
 				<div class="col d-flex">
 					<div class="card h-100">
-						<img
-							src="http://images.munto.kr/production-socialing/1695783639177-photo-voyfh-30236-0?s=384x384"
+						<img th:src="@{/images/test.jpg}"
 							class="card-img-top fixed-image" alt="recommend">
 						<div class="card-body">
 							<div class="d-flex justify-content-between mb-2">
 								<span class="badge bg-primary">전시</span> <span
 									class="badge bg-warning">추천</span>
 							</div>
-							<p class="card-title">큐레이터와 함께 미술관 투어!-예술의 전당 한가람미술관</p>
+							<p class="card-title">여행 모임 일본으로 가자~</p>
 							<p class="card-text">소셜링 · 서초구 · 11.9(토) 오후 2:00</p>
 							<div class="mt-auto d-flex align-items-center">
-								<img
-									src="https://images.munto.kr/production-user/1642665173948-image-30236-profileImage?s=96x96"
+								<img th:src="@{/images/icon.png}"
 									width="36" height="36" class="rounded-circle me-2"
 									alt="participant"> <span>4/11</span>
 							</div>

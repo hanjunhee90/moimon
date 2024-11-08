@@ -63,6 +63,32 @@ body {
 	background-color: #FEFAF6;
 }
 
+/*테이블과 table-container 로 정의한 커스텀 css*/
+ .table-container {
+        padding: 20px;
+    }
+    .selection-container {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin-top: 10px;
+    }
+    .selected-item {
+        display: inline-block;
+        padding: 8px 12px;
+        margin-right: 5px;
+        border: 1px solid #ddd;
+        border-radius: 20px;
+        background-color: #B5EAEA;
+        color: #333;
+        font-weight: bold;
+        cursor: pointer;
+    }
+    .selected-item:hover {
+        background-color: #90AACB;
+    }
+
+
 /* 푸터 관련 스타일 */
 .footer {
     background-color: #FBFBFB;
